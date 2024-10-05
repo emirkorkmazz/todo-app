@@ -1,20 +1,23 @@
 name: btk_todo
-description: "A new Flutter project."
-publish_to: 'none'
+description: "BTK ."
 version: 1.0.0+1
 
 environment:
-# Minumum Dart Sürümü
+  # Mimimum Dart SDK sürümü
   sdk: ^3.5.2
 
 # Uygulamanın çalışması için gerekli olan temel paketler
-# Sadece dependencies kısmında yer alan paketler uygulamanın çalışması için yeterlidir.
+# Sadece dependencies bölümünde belirtilen paketler 
+# Derlenmiş projeye dahil edilir
 dependencies:
-# Flutter SDK'sının projede kullanılacağını belirtir.
+  # Flutter SDK'sının projede kullanılacağını belirtir.
   flutter:
     sdk: flutter
-# Cupertiono stili iOS ikonları için kullanılır.
-  cupertino_icons: ^1.0.8 
+  # Localization (L10N)
+  flutter_localizations:
+    sdk: flutter
+  # Cupertino stili iOS ikonları
+  cupertino_icons: ^1.0.8
   json_annotation: ^4.9.0
   equatable: ^2.0.5
   dio: ^5.7.0
@@ -25,20 +28,26 @@ dependencies:
   dartz: ^0.10.1
   flutter_secure_storage: ^4.2.1
   shared_preferences: ^2.3.2
+  formz: ^0.7.0
+  flutter_bloc: ^8.1.6
 
-# Uygulamanın geliştirilmesi için gerekli olan paketler
-# Bu paketler sadece geliştirme aşamasında kullanılır.
+# Geliştirme ve test süreçlerinde kullanılır
+# Uygulamanın çalışması sırasında gerekli değildir.
 # Derlenmiş projeye dahil edilmez.
 dev_dependencies:
   build_runner: ^2.4.13
   flutter_test:
     sdk: flutter
-# Linting & Code Quality
+  # Linting & Code Quality
   injectable_generator: ^2.6.2
   json_serializable: ^6.8.0
   retrofit_generator: ^9.1.2
   very_good_analysis: ^6.0.0
 
+# Flutter yapılandırma ayarları
 flutter:
-
+  # Material Design bileşenlerini kullan
   uses-material-design: true
+
+  # Otomatik dosya üretimini etkinleştir
+  generate: true 
