@@ -4,18 +4,26 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
+# Minumum Dart Sürümü
   sdk: ^3.5.2
+
+# Uygulamanın çalışması için gerekli olan temel paketler
+# Sadece dependencies kısmında yer alan paketler uygulamanın çalışması için yeterlidir.
 dependencies:
+# Flutter SDK'sının projede kullanılacağını belirtir.
   flutter:
     sdk: flutter
-
+# Cupertiono stili iOS ikonları için kullanılır.
   cupertino_icons: ^1.0.8
 
+# Uygulamanın geliştirilmesi için gerekli olan paketler
+# Bu paketler sadece geliştirme aşamasında kullanılır.
+# Derlenmiş projeye dahil edilmez.
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^4.0.0
+# Linting & Code Quality
+  very_good_analysis: ^6.0.0
 
 flutter:
 
