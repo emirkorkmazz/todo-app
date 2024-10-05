@@ -5,3 +5,4 @@ export 'errors/errors.dart';
 export 'extension/extension.dart';
 export 'form_inputs/form_inputs.dart';
 export 'interceptors/interceptors.dart';
+export 'theme/theme.dart';
