@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-//import 'package:go_router/go_router.dart';
+import 'package:go_router/go_router.dart';
+
 import '/core/core.dart';
 import '/domain/domain.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({super.key});
+
   @override
   Widget build(BuildContext context) {
     ///
@@ -17,6 +19,7 @@ class LandingView extends StatelessWidget {
 
 class _LandingViewBody extends StatelessWidget {
   const _LandingViewBody();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,6 +54,7 @@ class _LandingViewBody extends StatelessWidget {
 
 class _LandingTextMessage extends StatelessWidget {
   const _LandingTextMessage();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -77,15 +81,15 @@ class _LandingTextMessage extends StatelessWidget {
 
 class _GoSignupViewButton extends StatelessWidget {
   const _GoSignupViewButton();
+
   @override
   Widget build(BuildContext context) {
     ///
     return AppElevatedButton(
       ///
       onPressed: () {
-        //[28. Adımda]
-        //_goSignupView(context);
-        debugPrint('');
+        /// [Signup Sayfasına Git]
+        _goSignupView(context);
 
         /// Uygulamanın ilk açılış durumunu depolar.
         _storeFirstAppOpenStatus();
@@ -101,7 +105,9 @@ class _GoSignupViewButton extends StatelessWidget {
     );
   }
 
-  // [28. Adımda] void _goSignupView(BuildContext context) => context.go('/signup');
+  void _goSignupView(BuildContext context) =>
+      context.go(AppRouteName.signup.path);
+
   Future<void> _storeFirstAppOpenStatus() async {
     /// Uygulama cihazda ilk defa açıldığı için isFirstTimeAppOpen'ı [false] yap
     /// Böylece kullanıcı her açılışta bu sayfayı tekrar görmesin
@@ -112,6 +118,7 @@ class _GoSignupViewButton extends StatelessWidget {
 
 class _DividerWithText extends StatelessWidget {
   const _DividerWithText();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -146,6 +153,7 @@ class _DividerWithText extends StatelessWidget {
 
 class _GoLoginViewButton extends StatelessWidget {
   const _GoLoginViewButton();
+
   @override
   Widget build(BuildContext context) {
     ///
@@ -155,9 +163,8 @@ class _GoLoginViewButton extends StatelessWidget {
 
       ///
       onPressed: () {
-        // [28. Adımda]
-        // _goLoginView(context);
-        debugPrint('');
+        /// [LoginView Sayfasına Git]
+        _goLoginView(context);
 
         /// Uygulamanın ilk açılış durumunu depolar.
         _storeFirstAppOpenStatus();
@@ -173,8 +180,9 @@ class _GoLoginViewButton extends StatelessWidget {
     );
   }
 
-  //  // [28. Adımda]
-  //void _goLoginView(BuildContext context) => context.go('/login');
+  void _goLoginView(BuildContext context) =>
+      context.go(AppRouteName.login.path);
+
   Future<void> _storeFirstAppOpenStatus() async {
     /// Uygulama cihazda ilk defa açıldığı için isFirstTimeAppOpen'ı [false] yap
     /// Böylece kullanıcı her açılışta bu sayfayı tekrar görmesin

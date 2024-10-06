@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-//import 'package:go_router/go_router.dart';
+import 'package:go_router/go_router.dart';
+
 import '/auth/auth.dart';
 import '/core/core.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
+
   @override
   Widget build(BuildContext context) {
     ///
@@ -13,6 +15,7 @@ class LoginView extends StatelessWidget {
       /// Dismiss the Keyboard - Klavyeyi Kapat/Gizle
       onTap: () {
         final currentFocus = FocusScope.of(context);
+
         if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
         }
@@ -29,6 +32,7 @@ class LoginView extends StatelessWidget {
 
 class _LoginViewBody extends StatelessWidget {
   const _LoginViewBody();
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -63,6 +67,7 @@ class _LoginViewBody extends StatelessWidget {
 
 class _LoginWelcomeMessage extends StatelessWidget {
   const _LoginWelcomeMessage();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -88,10 +93,12 @@ class _LoginWelcomeMessage extends StatelessWidget {
 
 class _UsernameField extends StatelessWidget {
   const _UsernameField();
+
   @override
   Widget build(BuildContext context) {
     final read = context.read<LoginBloc>();
     final state = context.watch<LoginBloc>().state;
+
     return AppTextField(
       hintText: context.translate.authFormUsername,
       autoFillHints: const [AutofillHints.username],
@@ -105,6 +112,7 @@ class _UsernameField extends StatelessWidget {
       onChanged: (username) => read.add(
         LoginUsernameChanged(username),
       ),
+
       errorText: state.username.displayError
           ?.errorText(context, context.translate.authFormUsername),
     );
@@ -113,10 +121,12 @@ class _UsernameField extends StatelessWidget {
 
 class _PasswordField extends StatelessWidget {
   const _PasswordField();
+
   @override
   Widget build(BuildContext context) {
     final read = context.read<LoginBloc>();
     final state = context.watch<LoginBloc>().state;
+
     return AppTextField(
       hintText: context.translate.authFormPassword,
       autoFillHints: const [AutofillHints.password],
@@ -134,6 +144,7 @@ class _PasswordField extends StatelessWidget {
       onChanged: (password) => read.add(
         LoginPasswordChanged(password),
       ),
+
       errorText: state.password.displayError
           ?.errorText(context, context.translate.authFormPassword),
     );
@@ -142,6 +153,7 @@ class _PasswordField extends StatelessWidget {
 
 class _LoginButton extends StatelessWidget {
   const _LoginButton();
+
   @override
   Widget build(BuildContext context) {
     final read = context.read<LoginBloc>();
@@ -158,10 +170,12 @@ class _LoginButton extends StatelessWidget {
               color: Colors.white,
             ),
           );
+
           final snackBar = SnackBar(
             content: errorText,
             backgroundColor: Theme.of(context).colorScheme.error,
           );
+
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(snackBar);
@@ -179,13 +193,13 @@ class _LoginButton extends StatelessWidget {
             content: successText,
             backgroundColor: Theme.of(context).colorScheme.primary,
           );
+
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(snackBar);
 
-          /// [Dashboard Sayfasına Git]
-          ///  [28. Adımda]
-          /// _goDashboardView(context);
+          /// [Todo Sayfasına Git]
+          _goTodoView(context);
         }
       },
 
@@ -224,22 +238,28 @@ class _LoginButton extends StatelessWidget {
       ),
     );
   }
-  // [28. Adımda]
-  //void _goDashboardView(BuildContext context) => context.go('/todos');
+
+  void _goTodoView(BuildContext context) {
+    //
+    context.go(AppRouteName.todo.path);
+    // Alternatif Kullanım: İsimlendirilmiş Rota
+    // context.goNamed(AppRouteName.todo.withoutSlash);
+  }
 }
 
 class _DontHaveAnAccount extends StatelessWidget {
   const _DontHaveAnAccount();
+
   @override
   Widget build(BuildContext context) {
     return AppTextButton(
-      onPressed: () {
-        /// [signup Sayfasına Git]
-        ///   // [28. Adımda]
-        /// context.go('/signup');
-      },
+      /// [Signup Sayfasına Git]
+      onPressed: () => _goSignupView(context),
       primaryText: context.translate.authNoAccount,
       actionText: context.translate.authButtonSignUp,
     );
   }
+
+  void _goSignupView(BuildContext context) =>
+      context.go(AppRouteName.signup.path);
 }
