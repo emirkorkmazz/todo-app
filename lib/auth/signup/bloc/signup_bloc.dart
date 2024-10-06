@@ -1,47 +1,52 @@
 import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:injectable/injectable.dart';
+
 import '/core/core.dart';
 import '/data/data.dart';
 import '/domain/domain.dart';
-part 'register_event.dart';
-part 'register_state.dart';
+
+part 'signup_event.dart';
+part 'signup_state.dart';
 
 @Injectable()
-class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  RegisterBloc({
+class SignupBloc extends Bloc<SignupEvent, SignupState> {
+  SignupBloc({
     required this.authRepository,
-  }) : super(const RegisterState()) {
+  }) : super(const SignupState()) {
     ///
-    on<RegisterUsernameChanged>(_onUsernameChanged);
+    on<SignupUsernameChanged>(_onUsernameChanged);
 
     ///
-    on<RegisterNameChanged>(_onNameChanged);
+    on<SignupNameChanged>(_onNameChanged);
 
     ///
-    on<RegisterSurnameChanged>(_onSurnameChanged);
+    on<SignupSurnameChanged>(_onSurnameChanged);
 
     ///
-    on<RegisterPasswordChanged>(_onPasswordChanged);
+    on<SignupPasswordChanged>(_onPasswordChanged);
 
     ///
-    on<RegisterSubmitted>(_onSubmitted);
+    on<SignupSubmitted>(_onSubmitted);
   }
+
   final IAuthRepository authRepository;
 
   /// [1 Username] alanı doldurulduğunda kontrol
   FutureOr<void> _onUsernameChanged(
-    RegisterUsernameChanged event,
-    Emitter<RegisterState> emit,
+    SignupUsernameChanged event,
+    Emitter<SignupState> emit,
   ) {
     ///
     final username = UsernameInput.dirty(event.username);
+
     emit(
       state.copyWith(
         username: username,
-        status: RegisterStatus.edit,
+        status: SignupStatus.edit,
         isValid: Formz.validate([
           username,
           state.name,
@@ -54,15 +59,16 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   /// [2 Name] alanı doldurulduğunda kontrol
   FutureOr<void> _onNameChanged(
-    RegisterNameChanged event,
-    Emitter<RegisterState> emit,
+    SignupNameChanged event,
+    Emitter<SignupState> emit,
   ) {
     ///
     final name = NameInput.dirty(event.name);
+
     emit(
       state.copyWith(
         name: name,
-        status: RegisterStatus.edit,
+        status: SignupStatus.edit,
         isValid: Formz.validate([
           state.username,
           name,
@@ -75,15 +81,16 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   /// [3 Surname] alanı doldurulduğunda kontrol
   FutureOr<void> _onSurnameChanged(
-    RegisterSurnameChanged event,
-    Emitter<RegisterState> emit,
+    SignupSurnameChanged event,
+    Emitter<SignupState> emit,
   ) {
     ///
     final surname = NameInput.dirty(event.surname);
+
     emit(
       state.copyWith(
         surname: surname,
-        status: RegisterStatus.edit,
+        status: SignupStatus.edit,
         isValid: Formz.validate([
           state.username,
           state.name,
@@ -96,27 +103,28 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   /// [4 Password] alanı doldurulduğunda kontrol
   FutureOr<void> _onPasswordChanged(
-    RegisterPasswordChanged event,
-    Emitter<RegisterState> emit,
+    SignupPasswordChanged event,
+    Emitter<SignupState> emit,
   ) {
     ///
     final password = PasswordInput.dirty(event.password);
+
     emit(
       state.copyWith(
         password: password,
-        status: RegisterStatus.edit,
+        status: SignupStatus.edit,
         isValid: Formz.validate([password, state.username]),
       ),
     );
   }
 
   FutureOr<void> _onSubmitted(
-    RegisterSubmitted event,
-    Emitter<RegisterState> emit,
+    SignupSubmitted event,
+    Emitter<SignupState> emit,
   ) async {
     ///
     if (!state.isValid) return;
-    emit(state.copyWith(status: RegisterStatus.loading));
+    emit(state.copyWith(status: SignupStatus.loading));
 
     /// Request'i hazırlayalım
     final request = RegisterRequest(
@@ -135,7 +143,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       /// [Handle left]: Error Type
       (AuthFailure failure) => emit(
         state.copyWith(
-          status: RegisterStatus.failure,
+          status: SignupStatus.failure,
         ),
       ),
 
@@ -143,7 +151,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       (response) {
         return emit(
           state.copyWith(
-            status: RegisterStatus.authenticated,
+            status: SignupStatus.authenticated,
           ),
         );
       },
