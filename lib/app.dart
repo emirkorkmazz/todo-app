@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '/core/core.dart';
 import 'auth/auth.dart';
+import '/todo/todo.dart';
 import 'auth/login/bloc/login_bloc.dart';
 
 class App extends StatelessWidget {
@@ -17,7 +18,10 @@ class App extends StatelessWidget {
         ),
         BlocProvider<SignupBloc>(
           create: (context) => getIt<SignupBloc>(),
-        )
+        ),
+        BlocProvider<TodoCubit>(
+          create: (context) => getIt<TodoCubit>()..fetchAllTodos(),
+        ),
       ],
       child: MaterialApp.router(
         /// [Router]
