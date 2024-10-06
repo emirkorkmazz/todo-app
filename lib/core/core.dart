@@ -4,5 +4,7 @@ export 'enums/enums.dart';
 export 'errors/errors.dart';
 export 'extension/extension.dart';
 export 'form_inputs/form_inputs.dart';
+export 'gen/gen.dart';
 export 'interceptors/interceptors.dart';
 export 'theme/theme.dart';
+export 'widgets/widgets.dart';
